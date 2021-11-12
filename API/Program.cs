@@ -1,17 +1,9 @@
 using API.Data;
 using API.Extensions;
+using API.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-//IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build();
-
-//builder.Services.AddDbContext<StoreContext>(opt =>
-//{
-//  opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
-//});
-
 
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddControllers();
@@ -26,13 +18,14 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-  app.UseDeveloperExceptionPage();
+  //app.UseDeveloperExceptionPage();
+  app.UseMiddleware<ExceptionMiddleware>(); // custom middleware
   app.UseSwagger();
   app.UseSwaggerUI();
 }
 
 //app.UseHttpsRedirection();
-app.UseRouting();
+//app.UseRouting();
 
 app.UseCors(x => x.AllowAnyHeader()
     .AllowAnyMethod()
@@ -41,13 +34,14 @@ app.UseCors(x => x.AllowAnyHeader()
 app.UseAuthorization();
 
 app.MapControllers();
+//app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
 {
   var context = services.GetRequiredService<StoreContext>();
-  context.Database.MigrateAsync();
+  await context.Database.MigrateAsync();
   DbInitializer.Initialize(context);
 }
 catch (Exception ex)
@@ -56,4 +50,4 @@ catch (Exception ex)
   logger.LogError(ex, "An error occurred during migration");
 }
 
-app.Run();
+await app.RunAsync();
