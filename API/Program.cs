@@ -29,6 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(x => x.AllowAnyHeader()
     .AllowAnyMethod()
+    .AllowCredentials() // allow cookies to be passed to client domain
     .WithOrigins("http://localhost:3000"));
 
 app.UseAuthorization();
