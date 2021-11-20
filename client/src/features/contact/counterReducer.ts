@@ -1,3 +1,4 @@
+// action types
 export const INCREMENT_COUNTER = "INCREMENT_COUNTER";
 export const DECREMENT_COUNTER = "DECREMENT_COUNTER";
 
@@ -11,10 +12,11 @@ const initialState: CounterState = {
   title: "YARC (yet another redux counter)",
 };
 
+// actoin creator
 export function increment(amount = 1) {
   return { type: INCREMENT_COUNTER, payload: amount };
 }
-
+// action creator
 export function decrement(amount = 1) {
   return { type: DECREMENT_COUNTER, payload: amount };
 }
