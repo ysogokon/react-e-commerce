@@ -4,7 +4,7 @@ namespace API.Extensions;
 
 public static class ProductExtensions
 {
-  public static IQueryable<Product> Sort( this IQueryable<Product> query, string orderBy )
+  public static IQueryable<Product> Sort ( this IQueryable<Product> query, string orderBy )
   {
     if ( string.IsNullOrEmpty ( orderBy ) )
     {
@@ -21,7 +21,7 @@ public static class ProductExtensions
     return query;
   }
 
-  public static IQueryable<Product> Search( this IQueryable<Product> query, string searchTerm )
+  public static IQueryable<Product> Search ( this IQueryable<Product> query, string searchTerm )
   {
     if ( string.IsNullOrEmpty ( searchTerm ) )
     {
@@ -31,7 +31,7 @@ public static class ProductExtensions
     return query.Where ( p => p.Name.ToLower ().Contains ( searchTerm.Trim ().ToLower () ) );
   }
 
-  public static IQueryable<Product> Filter( this IQueryable<Product> query, string brands, string types )
+  public static IQueryable<Product> Filter ( this IQueryable<Product> query, string brands, string types )
   {
     var brandList = new List<string> ();
     var typeList = new List<string> ();

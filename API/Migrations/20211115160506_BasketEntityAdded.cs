@@ -6,7 +6,7 @@ namespace API.Migrations
 {
   public partial class BasketEntityAdded : Migration
   {
-    protected override void Up( MigrationBuilder migrationBuilder )
+    protected override void Up ( MigrationBuilder migrationBuilder )
     {
       migrationBuilder.AlterColumn<string> (
           name: "Type",
@@ -99,7 +99,7 @@ namespace API.Migrations
           column: "ProductId" );
     }
 
-    protected override void Down( MigrationBuilder migrationBuilder )
+    protected override void Down ( MigrationBuilder migrationBuilder )
     {
       migrationBuilder.DropTable (
           name: "BasketItems" );

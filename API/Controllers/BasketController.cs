@@ -9,13 +9,13 @@ namespace API.Controllers;
 public class BasketController : BaseApiController
 {
   private readonly StoreContext _context;
-  public BasketController( StoreContext context )
+  public BasketController ( StoreContext context )
   {
     _context = context;
   }
 
   [HttpGet ( Name = "GetBasket" )]
-  public async Task<ActionResult<BasketDto>> GetBasket()
+  public async Task<ActionResult<BasketDto>> GetBasket ()
   {
     var basket = await RetrieveBasket ();
 
@@ -28,7 +28,7 @@ public class BasketController : BaseApiController
   }
 
   [HttpPost]
-  public async Task<ActionResult<BasketDto>> AddItemToBasket( int productId, int quantity )
+  public async Task<ActionResult<BasketDto>> AddItemToBasket ( int productId, int quantity )
   {
     var basket = await RetrieveBasket ();
 
@@ -57,7 +57,7 @@ public class BasketController : BaseApiController
   }
 
   [HttpDelete]
-  public async Task<ActionResult> RemoveBasketItem( int productId, int quantity )
+  public async Task<ActionResult> RemoveBasketItem ( int productId, int quantity )
   {
     var basket = await RetrieveBasket ();
 
@@ -78,7 +78,7 @@ public class BasketController : BaseApiController
     return BadRequest ( new ProblemDetails { Title = "Problem removing item from the basket" } );
   }
 
-  private async Task<Basket> RetrieveBasket()
+  private async Task<Basket> RetrieveBasket ()
   {
     return await _context.Baskets
         .Include ( i => i.Items )
@@ -86,7 +86,7 @@ public class BasketController : BaseApiController
         .FirstOrDefaultAsync ( x => x.BuyerId == Request.Cookies[ "buyerId" ] );
   }
 
-  private Basket CreateBasket()
+  private Basket CreateBasket ()
   {
     var buyerId = Guid.NewGuid ().ToString ();
     var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays ( 30 ) };
@@ -96,7 +96,7 @@ public class BasketController : BaseApiController
     return basket;
   }
 
-  private BasketDto MapBasketToDto( Basket basket ) => new ()
+  private BasketDto MapBasketToDto ( Basket basket ) => new ()
   {
     Id = basket.Id,
     BuyerId = basket.BuyerId,

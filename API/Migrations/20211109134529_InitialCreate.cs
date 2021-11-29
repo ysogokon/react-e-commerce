@@ -6,7 +6,7 @@ namespace API.Migrations
 {
   public partial class InitialCreate : Migration
   {
-    protected override void Up( MigrationBuilder migrationBuilder )
+    protected override void Up ( MigrationBuilder migrationBuilder )
     {
       migrationBuilder.CreateTable (
           name: "Products",
@@ -28,7 +28,7 @@ namespace API.Migrations
           } );
     }
 
-    protected override void Down( MigrationBuilder migrationBuilder )
+    protected override void Down ( MigrationBuilder migrationBuilder )
     {
       migrationBuilder.DropTable (
           name: "Products" );

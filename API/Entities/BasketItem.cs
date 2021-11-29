@@ -2,7 +2,7 @@
 
 namespace API.Entities;
 
-[Table("BasketItems")]
+[Table ( "BasketItems" )]
 public class BasketItem
 {
   public int Id { get; set; }
